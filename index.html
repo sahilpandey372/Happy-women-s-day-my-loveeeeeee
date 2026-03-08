@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Inspiration</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1a0a1a;
+            font-family: 'Georgia', serif;
+        }
+
+        /* The Background Image */
+        .background-garden {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Using a high-quality public tulip field image */
+            background: url('https://images.unsplash.com/photo-1518131348357-9690184b9679?q=80&w=2000&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            filter: brightness(0.7) contrast(1.1);
+            z-index: -1;
+            /* This creates the wind/sway effect */
+            animation: gentleSway 10s ease-in-out infinite alternate;
+        }
+
+        .content {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.2); 
+        }
+
+        .message {
+            color: #fff;
+            max-width: 85%;
+            padding: 20px;
+            text-shadow: 0 0 15px rgba(0,0,0,0.9), 0 0 10px rgba(255, 105, 180, 0.6);
+            animation: fadeInUp 3s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Fireflies */
+        .firefly {
+            position: absolute;
+            background: radial-gradient(circle, #fff9c4 0%, rgba(255, 241, 118, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 0 12px 3px rgba(255, 241, 118, 0.7);
+        }
+
+        @keyframes gentleSway {
+            0% { transform: scale(1.1) translateX(-10px) rotate(-1deg); }
+            100% { transform: scale(1.1) translateX(10px) rotate(1deg); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-garden"></div>
+
+    <div class="content">
+        <div class="message">
+            <h1>Happy women’s day, my woman...<br>
+            my inspiration, and the strongest woman...<br>
+            who keeps me goin and encourages me to move forward..</h1>
+        </div>
+    </div>
+
+    <script>
+        function createFirefly() {
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            const size = Math.random() * 5 + 2 + 'px';
+            firefly.style.width = size;
+            firefly.style.height = size;
+            firefly.style.left = Math.random() * 100 + 'vw';
+            firefly.style.top = Math.random() * 100 + 'vh';
+            
+            const moveX = (Math.random() - 0.5) * 300 + 'px';
+            const moveY = (Math.random() - 0.5) * 300 + 'px';
+            firefly.style.setProperty('--x', moveX);
+            firefly.style.setProperty('--y', moveY);
+            
+            const duration = Math.random() * 8 + 7 + 's';
+            firefly.style.animation = `drift ${duration} ease-in-out infinite`;
+            
+            document.body.appendChild(firefly);
+            setTimeout(() => { firefly.remove(); createFirefly(); }, parseFloat(duration) * 1000);
+        }
+
+        for(let i = 0; i < 35; i++) {
+            setTimeout(createFirefly, Math.random() * 3000);
+        }
+    </script>
+</body>
+</html>
